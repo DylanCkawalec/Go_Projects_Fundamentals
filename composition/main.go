@@ -1,11 +1,8 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-//types
-type Vehical struct {
+type Vehicle struct {
 	NumberOfWheels     int
 	NumberOfPassengers int
 }
@@ -16,70 +13,52 @@ type Car struct {
 	Year       int
 	IsElectric bool
 	IsHybrid   bool
-	Vehical    Vehical //calls composition, has access too the fields in vehical
+	Vehicle    Vehicle
 }
 
-//tied to vehical
-func (v Vehical) showDetails() {
-	fmt.Println("Number of passangers: ", v.NumberOfPassengers)
+func (v Vehicle) showDetails() {
+	fmt.Println("Number of passengers:", v.NumberOfPassengers)
 	fmt.Println("Number of wheels:", v.NumberOfWheels)
 }
 
-//tied to car
 func (c Car) show() {
-	fmt.Println("Make: ", c.Make)
-	fmt.Println("Model: ", c.Model)
-	fmt.Println("year: ", c.Year)
-	fmt.Println("Electric: ", c.IsElectric)
-	fmt.Println("Hybrid: ", c.IsHybrid)
-	c.Vehical.showDetails()
-
+	fmt.Println("Make:", c.Make)
+	fmt.Println("Model:", c.Model)
+	fmt.Println("Year:", c.Year)
+	fmt.Println("Is Electric:", c.IsElectric)
+	fmt.Println("Is Hybrid:", c.IsHybrid)
+	c.Vehicle.showDetails()
 }
 
 func main() {
-	//vehical types
-	suv := Vehical{
+	suv := Vehicle{
 		NumberOfWheels:     4,
 		NumberOfPassengers: 6,
 	}
-	Motorcycle := Vehical{
-		NumberOfWheels:     2,
-		NumberOfPassengers: 1,
-	}
-	//car types
+
 	volvoXC90 := Car{
 		Make:       "Volvo",
 		Model:      "XC90 T8",
 		Year:       2021,
 		IsElectric: false,
 		IsHybrid:   true,
-
-		Vehical: suv,
+		Vehicle:    suv,
 	}
 
+	volvoXC90.show()
+
+	fmt.Println()
+
 	teslaModelX := Car{
-		Make:       "tesla",
+		Make:       "Tesla",
 		Model:      "Model X",
 		Year:       2021,
 		IsElectric: true,
 		IsHybrid:   false,
-		Vehical:    suv,
+		Vehicle:    suv,
 	}
 
-	Kawasaki := Car{
-		Make:       "Susuki",
-		Model:      "787",
-		Year:       2021,
-		IsElectric: true,
-		IsHybrid:   false,
-		Vehical:    Motorcycle,
-	}
+	teslaModelX.Vehicle.NumberOfPassengers = 7
 
-	volvoXC90.show()
-	fmt.Println()
-	//make another one
-	teslaModelX.Vehical.NumberOfPassengers = 7
-	Kawasaki.show()
-	fmt.Println()
 	teslaModelX.show()
 }
