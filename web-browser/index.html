@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+         <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <title>Rock, Paper, Scissors</title>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+    <div class="container">
+            <h1 class= "mt-4">Rock, Paper, Scissors</h1><!-- add "margin top", space above-->
+            <hr>
+
+            <p id="player_choice">&nbsp;</p><!-- Player Choice-->
+            <p id="computer_choice">&nbsp;</p><!-- Computer Choice-->
+            <p class="text-danger" id="round_result">&nbsp;</p><!-- Result of the Round-->
+            <p class ="text-success" id="round_message">&nbsp;</p>
+            <hr> <!-- non breaking space, theres content here, "just make it a space"-->
+
+            <p>choose rock, paper or scissors!</p>
+            <br>
+            <br>
+
+            <!--makes the outlines of our buttons using bootstrap-->
+            <button class="btn btn-outline-secondary" onClick="choose(0);">Rock</button>
+            <button class="btn btn-outline-danger" onClick="choose(1);">Paper</button>
+            <button class="btn btn-outline-success" onClick="choose(2);">Scissors</button>
+
+            
+            <script src="" async defer></script>
+    </div>
+    </body>
+    <script>
+        function choose(x) {
+            fetch("/play?c=" + x)
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data)
+                if(x == 0) { 
+                document.getElementById("player_choice").innerHTML = "Player Chose ROCK";
+                }else if (x ==1 ) { 
+                document.getElementById("player_choice").innerHTML = "Player Chose PAPER";
+                }else{ 
+                document.getElementById("player_choice").innerHTML = "Player Chose SCISSORS";
+                }
+                document.getElementById("computer_choice").innerHTML = data.computer_choice;
+                document.getElementById("round_result").innerHTML = data.round_result;
+
+                document.getElementById("round_message").innerHTML = data.message;
+
+            })
+
+        }
+    </script>
+</html>
